@@ -9,12 +9,13 @@ WORKDIR /usr/src/app/
 #
 # # Copy
 # COPY go.mod go.sum ./
+COPY . .
 
 # Download
 RUN go mod download
 
 # Copy the rest of the source code
-COPY . .
+# COPY . .
 
 RUN go build -o product-catalog .
 
