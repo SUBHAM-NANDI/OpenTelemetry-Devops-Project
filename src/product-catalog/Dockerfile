@@ -3,12 +3,12 @@ FROM golang:1.22-alpine AS builder
 WORKDIR /usr/src/app/
 
 # Use Go build cache for dependencies
-RUN --mount=type=cache,target=/go/pkg/mod \
-    --mount=type=cache,target=/root/.cache/go-build \
-    mkdir -p /root/.cache/go-build
-
-# Copy
-COPY go.mod go.sum ./
+# RUN --mount=type=cache,target=/go/pkg/mod \
+#     --mount=type=cache,target=/root/.cache/go-build \
+#     mkdir -p /root/.cache/go-build
+#
+# # Copy
+# COPY go.mod go.sum ./
 
 # Download
 RUN go mod download
@@ -27,5 +27,5 @@ WORKDIR /usr/src/app/
 COPY ./products/ ./products/
 COPY --from=builder /usr/src/app/product-catalog/ ./
 
-ENV PRODUCT_CATALOG_PORT 8088
+ENV PRODUCT_CATALOG_PORT 8001
 ENTRYPOINT [ "./product-catalog" ]
